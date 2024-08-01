@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Display from './Components/Display.jsx'
 import Button from './Components/Button.jsx'
 import Statistics from './Components/Statistics.jsx'
+import Feedback from './Components/Feedback.jsx'
 
 const App = () => {
   // save clicks of each button to its own state
@@ -11,9 +12,11 @@ const App = () => {
   const [all, setAll] = useState(0)
   const [average, setAverage] = useState(0)
   const [positive, setPositive] = useState(0)
+  const [feedback, setFeedback] = useState(false)
 
   useEffect(() => {
     if(good > 0 || bad > 0 || neutral > 0 ){
+      setFeedback(true)
       handleStatistics()
     }
   },[good, neutral, bad]);
@@ -44,12 +47,13 @@ const App = () => {
       <Button text="neutral" onClick={handleNeutral}/>
       <Button text="bad" onClick={handleBad}/>
       <Display text="statistics"/>
-      <Statistics text="good" value={good}/>
-      <Statistics text="neutral" value={neutral}/>
-      <Statistics text="bad" value={bad}/>
-      <Statistics text="all" value={all}/>
-      <Statistics text="average" value={average}/>
-      <Statistics text="positive" value={positive}/>
+      <Statistics text="good" value={good} feedback={feedback}/>
+      <Statistics text="neutral" value={neutral} feedback={feedback}/>
+      <Statistics text="bad" value={bad} feedback={feedback}/>
+      <Statistics text="all" value={all} feedback={feedback}/>
+      <Statistics text="average" value={average} feedback={feedback}/>
+      <Statistics text="positive" value={positive} feedback={feedback}/>
+      <Feedback text="No feedback given" feedback={feedback}/>
     </div>
   )
 }
