@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Display from './Components/Display.jsx'
 import Button from './Components/Button.jsx'
 import Statistics from './Components/Statistics.jsx'
@@ -12,25 +12,29 @@ const App = () => {
   const [average, setAverage] = useState(0)
   const [positive, setPositive] = useState(0)
 
+  useEffect(() => {
+    if(good > 0 || bad > 0 || neutral > 0 ){
+      handleStatistics()
+    }
+  },[good, neutral, bad]);
+
   const handleGood = () =>{
     setGood(good + 1)
-    handleStatistics()
   }
   
   const handleNeutral = () =>{
     setNeutral(neutral + 1)
-    handleStatistics()
   }
   
   const handleBad = () =>{
     setBad(bad + 1)
-    handleStatistics()
   }
   
   const handleStatistics=()=>{
-    setAll(good + neutral + bad)
-    setAverage((good + (bad * -1))/all)
-    setPositive((good/all)*100)
+    const updatedAll = (good + neutral + bad)
+    setAll(updatedAll)
+    setAverage(((good + (bad * -1))/updatedAll))
+    setPositive(((good/updatedAll)*100))
   }
 
   return (
