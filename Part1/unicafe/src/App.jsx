@@ -47,12 +47,14 @@ const App = () => {
       <Button text="neutral" onClick={handleNeutral}/>
       <Button text="bad" onClick={handleBad}/>
       <Display text="statistics"/>
-      <StatisticLine text="good" value={good} feedback={feedback}/>
-      <StatisticLine text="neutral" value={neutral} feedback={feedback}/>
-      <StatisticLine text="bad" value={bad} feedback={feedback}/>
-      <StatisticLine text="all" value={all} feedback={feedback}/>
-      <StatisticLine text="average" value={average} feedback={feedback}/>
-      <StatisticLine text="positive" value={positive} feedback={feedback}/>
+      <table>
+        <StatisticLine text="good" value={good} feedback={feedback}/>
+        <StatisticLine text="neutral" value={neutral} feedback={feedback}/>
+        <StatisticLine text="bad" value={bad} feedback={feedback}/>
+        <StatisticLine text="all" value={all} feedback={feedback}/>
+        <StatisticLine text="average" value={average} feedback={feedback}/>
+        <StatisticLine text="positive" value={positive} feedback={feedback}/>
+      </table>
       <Feedback text="No feedback given" feedback={feedback}/>
     </div>
   )

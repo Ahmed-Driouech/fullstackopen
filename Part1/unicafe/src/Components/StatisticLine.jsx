@@ -1,7 +1,7 @@
 const StatisticLine = (props) => {
     return(
         <>
-           {props.feedback ?  (<p>{props.text} {props.value}</p>): (null)}
+           {props.feedback ?  (<tr><td>{props.text}</td> <td>{props.value}</td></tr>): (null)}
         </>
     )
 } 
