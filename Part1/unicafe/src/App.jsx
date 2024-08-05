@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Display from './Components/Display.jsx'
 import Button from './Components/Button.jsx'
-import Statistics from './Components/Statistics.jsx'
+import StatisticLine from './Components/StatisticLine.jsx'
 import Feedback from './Components/Feedback.jsx'
 
 const App = () => {
@@ -47,12 +47,12 @@ const App = () => {
       <Button text="neutral" onClick={handleNeutral}/>
       <Button text="bad" onClick={handleBad}/>
       <Display text="statistics"/>
-      <Statistics text="good" value={good} feedback={feedback}/>
-      <Statistics text="neutral" value={neutral} feedback={feedback}/>
-      <Statistics text="bad" value={bad} feedback={feedback}/>
-      <Statistics text="all" value={all} feedback={feedback}/>
-      <Statistics text="average" value={average} feedback={feedback}/>
-      <Statistics text="positive" value={positive} feedback={feedback}/>
+      <StatisticLine text="good" value={good} feedback={feedback}/>
+      <StatisticLine text="neutral" value={neutral} feedback={feedback}/>
+      <StatisticLine text="bad" value={bad} feedback={feedback}/>
+      <StatisticLine text="all" value={all} feedback={feedback}/>
+      <StatisticLine text="average" value={average} feedback={feedback}/>
+      <StatisticLine text="positive" value={positive} feedback={feedback}/>
       <Feedback text="No feedback given" feedback={feedback}/>
     </div>
   )

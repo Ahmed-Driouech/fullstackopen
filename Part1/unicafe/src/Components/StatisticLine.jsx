@@ -1,4 +1,4 @@
-const Statistics = (props) => {
+const StatisticLine = (props) => {
     return(
         <>
            {props.feedback ?  (<p>{props.text} {props.value}</p>): (null)}
@@ -6,4 +6,4 @@ const Statistics = (props) => {
     )
 } 
 
-export default Statistics
+export default StatisticLine
