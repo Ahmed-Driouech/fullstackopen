@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Button from './Components/Button.jsx'
+import { useEffect } from 'react'
 
 const App = () => {
   const anecdotes = [
@@ -15,6 +16,11 @@ const App = () => {
    
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
+  const [mostVotes, setMostVotes] = useState(0)
+
+  useEffect(() => {
+    handleMostVotes()
+  }, [votes])
 
   const generateRandomNumber = () => {
     const randomNumber = Math.floor(Math.random() * anecdotes.length)
@@ -22,17 +28,27 @@ const App = () => {
   }
 
   const vote = () => {
-    const copy = {...votes}
+    const copy = [...votes]
     copy[selected] += 1
     setVotes(copy)
   }
 
+  const handleMostVotes = () => {
+    const maxValue = Math.max(...votes)
+    const maxIndex = votes.indexOf(maxValue)
+    setMostVotes(maxIndex)
+  }
+
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {anecdotes[selected]}
       <p>has {votes[selected]} votes</p>
       <Button onClick={vote} text="vote" />
       <Button onClick={generateRandomNumber} text="next anecdote"/>
+      <h1>Anecdote with most votes</h1>
+      {anecdotes[mostVotes]}
+      <p>has {votes[mostVotes]} votes</p>
     </div>
   )
 }
