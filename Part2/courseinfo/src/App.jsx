@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Course from './Components/Course.jsx'
 
 function App() {
-  const course = {
+  const courses = [{
     name: 'Half Stack application development',
     id: 1,
     parts: [
@@ -27,14 +27,30 @@ function App() {
         id: 4
       }
     ]
-  }
+  }, 
+  {
+    name: 'Node.js',
+    id: 2,
+    parts: [
+      {
+        name: 'Routing',
+        exercises: 3,
+        id: 1
+      },
+      {
+        name: 'Middlewares',
+        exercises: 7,
+        id: 2
+      }
+    ]
+  }]
 
-  const total = course.parts.reduce((sum, part) =>{ return sum + part.exercises},0)
+  //const total = courses.parts.reduce((sum, part) =>{ return sum + part.exercises},0)
 
   return (
     <div>
-      <Course course={course} />
-      <p style={{fontWeight: 'bold'}}>total of {total} exercises</p>
+      <Course courses={courses} />
+      {/*<p style={{fontWeight: 'bold'}}>total of {total} exercises</p>*/}
     </div>
   )
 }
