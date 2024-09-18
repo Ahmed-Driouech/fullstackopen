@@ -20,13 +20,21 @@ function App() {
         name: 'State of a component',
         exercises: 14,
         id: 3
+      },
+      {
+        name: 'Redux',
+        exercises: 11,
+        id: 4
       }
     ]
   }
 
+  const total = course.parts.reduce((sum, part) =>{ return sum + part.exercises},0)
+
   return (
     <div>
       <Course course={course} />
+      <p style={{fontWeight: 'bold'}}>total of {total} exercises</p>
     </div>
   )
 }
