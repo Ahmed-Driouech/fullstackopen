@@ -45,12 +45,9 @@ function App() {
     ]
   }]
 
-  //const total = courses.parts.reduce((sum, part) =>{ return sum + part.exercises},0)
-
   return (
     <div>
       <Course courses={courses} />
-      {/*<p style={{fontWeight: 'bold'}}>total of {total} exercises</p>*/}
     </div>
   )
 }
