@@ -3,6 +3,7 @@ import Filter from './Components/Filter'
 import PersonForm from './Components/PersonForm'
 import Persons from './Components/Persons'
 import axios from 'axios'
+import personService from './Services/persons'
 
 function App() {
   const [persons, setPersons] = useState([])
@@ -13,10 +14,10 @@ function App() {
 
   useEffect(()=>{
     //fetch data from the JSON-server and store in the persons array
-    axios
-    .get('http://localhost:3001/persons')
-    .then(response =>{
-      setPersons(response.data)
+    personService
+    .getAll()
+    .then(allNotes =>{
+      setPersons(allNotes)
     })
     
     //setting the dependencies of the useEffect to [] makes sure it only runs after the first render of the app component
@@ -35,10 +36,10 @@ function App() {
         number: newNumber
       }
       
-      axios
-      .post('http://localhost:3001/persons', newPerson)
-      .then(response =>{
-        setPersons(persons.concat(response.data))
+      personService
+      .create(newPerson)
+      .then(createdPerson =>{
+        setPersons(persons.concat(createdPerson))
         setNewName('')
         setNewNumber('')
       })
