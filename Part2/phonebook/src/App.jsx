@@ -61,6 +61,17 @@ function App() {
     setFilteredNames(persons.filter(person => filteredNameList.includes(person.name.toLowerCase())))
   }
 
+  const handleDelete = (id) => {
+    const personToDelete = persons.find(person => person.id === id)
+    const deleteConfirmed = window.confirm(`Delete ${personToDelete.name}?`)
+    if(deleteConfirmed){
+      personService.remove(id)
+    }
+    else{
+      console.log("delete canceled")
+    }
+  }
+
   return (
     <div>
     <h2>Phonebook</h2>
@@ -73,7 +84,7 @@ function App() {
     numberValue={newNumber} 
     numberChange={handleNumberChange}/>
     <h3>Numbers</h3>
-    <Persons persons={persons} filteredNames={filteredNames} filter={filter}/>
+    <Persons persons={persons} filteredNames={filteredNames} filter={filter} handleDelete={handleDelete}/>
   </div>
   )
 }

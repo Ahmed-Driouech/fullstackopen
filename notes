@@ -6,3 +6,26 @@ npm install
 setup a json-server that serves data from db.json file on localhost:
 npx json-server --port=3001 --watch db.json
 run the server with: npm run server
+
+"persons":[
+    { 
+      "name": "Arto Hellas", 
+      "number": "040-123456",
+      "id": "1"
+    },
+    { 
+      "name": "Ada Lovelace", 
+      "number": "39-44-5323523",
+      "id": "2"
+    },
+    { 
+      "name": "Dan Abramov", 
+      "number": "12-43-234345",
+      "id": "3"
+    },
+    { 
+      "name": "Mary Poppendieck", 
+      "number": "39-23-6423122",
+      "id": "4"
+    }
+  ]
