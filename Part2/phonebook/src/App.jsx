@@ -4,13 +4,14 @@ import PersonForm from './Components/PersonForm'
 import Persons from './Components/Persons'
 import axios from 'axios'
 import personService from './Services/persons'
-
+import Notification from './Components/Notification'
 function App() {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
   const [filteredNames, setFilteredNames] = useState([])
+  const [notification, setNotification] = useState(null)
 
   useEffect(()=>{
     //fetch data from the JSON-server and store in the persons array
@@ -29,7 +30,7 @@ function App() {
 
     if(nameList.includes(newName)){
       const updateConfirmed = window.confirm(`${newName} is already added to phonebook, replace old number with a new one?`)
-      updateConfirmed ? updatePerson() : console.log('update canceled')
+      updateConfirmed ? updatePerson() : console.log('Update canceled')
     }
     else{
       const newPerson = {
@@ -41,6 +42,10 @@ function App() {
       .create(newPerson)
       .then(createdPerson =>{
         setPersons(persons.concat(createdPerson))
+        setNotification(`Added ${newName}`)
+        setTimeout(() => {
+          setNotification(null)
+        }, 5000)
         setNewName('')
         setNewNumber('')
       })
@@ -55,6 +60,12 @@ function App() {
     personService.update(personToUpdate.id, updatedPerson)
     .then(returnedPerson => {
       setPersons(persons.map(person => person.id === personToUpdate.id ? returnedPerson : person))
+      setNotification(`Updated ${returnedPerson.name}`)
+      setTimeout(() => {
+        setNotification(null)
+      }, 5000)
+      setNewName('')
+      setNewNumber('')
     })
   }
 
@@ -75,8 +86,15 @@ function App() {
   const handleDelete = (id) => {
     const personToDelete = persons.find(person => person.id === id)
     const deleteConfirmed = window.confirm(`Delete ${personToDelete.name}?`)
+    
     if(deleteConfirmed){
       personService.remove(id)
+      .then(deletedPerson => 
+        setPersons(persons.filter(person => person.id !== deletedPerson.id)))
+      setNotification(`Deleted ${personToDelete.name}`)
+      setTimeout(() => {
+        setNotification(null)
+      }, 5000)
     }
     else{
       console.log("delete canceled")
@@ -86,6 +104,7 @@ function App() {
   return (
     <div>
     <h2>Phonebook</h2>
+    <Notification message = {notification}/>
     <Filter value={filter} onChange={handleFilterChange}/>
     <h3>add a new</h3>
     <PersonForm 
