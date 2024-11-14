@@ -12,7 +12,7 @@ function App() {
   const [filter, setFilter] = useState('')
   const [filteredNames, setFilteredNames] = useState([])
   const [notification, setNotification] = useState(null)
-
+  const [notificationType, setNotificationType]= useState('')
   useEffect(()=>{
     //fetch data from the JSON-server and store in the persons array
     personService
@@ -43,6 +43,7 @@ function App() {
       .then(createdPerson =>{
         setPersons(persons.concat(createdPerson))
         setNotification(`Added ${newName}`)
+        setNotificationType('success')
         setTimeout(() => {
           setNotification(null)
         }, 5000)
@@ -60,12 +61,20 @@ function App() {
     personService.update(personToUpdate.id, updatedPerson)
     .then(returnedPerson => {
       setPersons(persons.map(person => person.id === personToUpdate.id ? returnedPerson : person))
+      setNotificationType('success')
       setNotification(`Updated ${returnedPerson.name}`)
       setTimeout(() => {
         setNotification(null)
       }, 5000)
       setNewName('')
       setNewNumber('')
+    })
+    .catch(error =>{
+      setNotificationType('error')
+      setNotification(`Information of ${personToUpdate.name} has already been removed from the server`)
+      setTimeout(() => {
+        setNotification(null)
+      }, 5000)
     })
   }
 
@@ -89,12 +98,13 @@ function App() {
     
     if(deleteConfirmed){
       personService.remove(id)
-      .then(deletedPerson => 
-        setPersons(persons.filter(person => person.id !== deletedPerson.id)))
-      setNotification(`Deleted ${personToDelete.name}`)
-      setTimeout(() => {
-        setNotification(null)
-      }, 5000)
+      .then(deletedPerson => {
+        setPersons(persons.filter(person => person.id !== deletedPerson.id))
+        setNotificationType('success')
+        setNotification(`Deleted ${personToDelete.name}`)
+        setTimeout(() => {
+         setNotification(null)
+        }, 5000)})
     }
     else{
       console.log("delete canceled")
@@ -104,7 +114,7 @@ function App() {
   return (
     <div>
     <h2>Phonebook</h2>
-    <Notification message = {notification}/>
+    <Notification message = {notification} messageType={notificationType}/>
     <Filter value={filter} onChange={handleFilterChange}/>
     <h3>add a new</h3>
     <PersonForm 
