@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios';
+import Filter from './Components/Filter'
+import Countries from './Components/Countries';
+
 
 function App() {
-const [country, setCountry] = useState(null)
+const [country, setCountry] = useState('')
+const [countryFilter, setCountryFilter] = useState([])
 const [allCountries, setAllCountries] = useState([])
   useEffect(() => {
     axios.get('https://studies.cs.helsinki.fi/restcountries/api/all')
@@ -12,16 +16,15 @@ const [allCountries, setAllCountries] = useState([])
 
   const handleCountryChange = (event) => {
     setCountry(event.target.value)
-    console.log(country)
+    setCountryFilter(allCountries.filter(c => c.name.common.toLowerCase().includes(event.target.value.toLowerCase())))
+    console.log(countryFilter)
+    console.log(event.target.value)
   }
   return (
     <>
-    <div>
-      find countries <input value={country} onChange={handleCountryChange}/>
-    </div>
-    <ul>
-      {allCountries.map(country => <li key={country.name.common}>{country.name.common}</li>)}
-    </ul>
+    <Filter value={country} onChange={handleCountryChange}/>
+    <Countries countryList={countryFilter}/>
+    
     </>
   )
 }
