@@ -22,8 +22,8 @@ const [allCountries, setAllCountries] = useState([])
   }
   return (
     <>
-    <Filter value={country} onChange={handleCountryChange}/>
-    <Countries countryList={countryFilter}/>
+      <Filter value={country} onChange={handleCountryChange}/>
+      <Countries countryList={countryFilter}/>
     </>
   )
 }
