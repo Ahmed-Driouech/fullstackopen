@@ -1,4 +1,5 @@
 const CountryPage = ({country}) =>{
+    console.log("hi")
     return(
         <>
         <h1>{country.name.common}</h1>
