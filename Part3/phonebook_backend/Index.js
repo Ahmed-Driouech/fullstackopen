@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 
-const persons = [
+let persons = [
     { 
       "id": "1",
       "name": "Arto Hellas", 
@@ -23,6 +23,7 @@ const persons = [
       "number": "39-23-6423122"
     }
 ]
+//persons cant be const, otherwise we cant make changes to it with http requests
 
 app.get('/api/persons', (request, response) => {
     response.json(persons)
@@ -35,18 +36,25 @@ app.get('/info', (request, response) => {
          <p>${time}</p>`)
   })
 
-  app.get('/api/persons/:id', (request, response) => {
+app.get('/api/persons/:id', (request, response) => {
+const id = request.params.id
+const person = persons.find(p => p.id === id)
+
+if(person){
+    response.json(person)
+}
+else{
+    console.log('person not found!')
+    response.status(404).end()
+}
+})
+
+app.delete('/api/persons/:id', (request, response) => {
     const id = request.params.id
-    const person = persons.find(p => p.id === id)
-    
-    if(person){
-        response.json(person)
-    }
-    else{
-        console.log('person not found!')
-        response.status(404).end()
-    }
-  })
+    persons = persons.filter(p => p.id !== id)
+
+    response.status(204).end()
+})
 
 const PORT = 3001
 app.listen(PORT, () => {
