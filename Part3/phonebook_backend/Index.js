@@ -24,6 +24,7 @@ let persons = [
     }
 ]
 //persons cant be const, otherwise we cant make changes to it with http requests
+app.use(express.json())
 
 app.get('/api/persons', (request, response) => {
     response.json(persons)
@@ -56,6 +57,21 @@ app.delete('/api/persons/:id', (request, response) => {
     response.status(204).end()
 })
 
+const generateId = () => {
+    return Math.floor(Math.random() * 5000) + 1
+}
+
+app.post('/api/persons', (request, response) => {
+    const body = request.body
+    const newPerson = {
+        id: generateId(),
+        name: body.name,
+        number: body.number
+    }
+
+    persons = persons.concat(newPerson)
+    response.json(newPerson)
+})
 const PORT = 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
