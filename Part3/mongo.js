@@ -27,6 +27,7 @@ const phonebookSchema = new mongoose.Schema({
 
 const Person = mongoose.model('Person', phonebookSchema)
 
+
 if(name !== null && number !== null){
     const person = new Person({
         name: name,
