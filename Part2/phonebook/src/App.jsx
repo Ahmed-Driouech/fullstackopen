@@ -49,6 +49,14 @@ function App() {
         setNewName('')
         setNewNumber('')
       })
+      .catch(error => {
+        console.log('catched')
+        setNotificationType('error')
+        setNotification(error.response.data.error)
+        setTimeout(() => {
+          setNotification(null)
+        }, 5000)
+      })
     }
 
   }
