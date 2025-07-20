@@ -1,0 +1,18 @@
+{
+  "name": "part4",
+  "version": "1.0.0",
+  "description": "blog list application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --watch index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ahmed Driouech",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.16.3"
+  }
+}
